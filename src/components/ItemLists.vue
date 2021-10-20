@@ -1,12 +1,16 @@
 <template>
- <div class="myInput flex flex-col w-min mx-auto space-y-3" v-on:keyup.enter="onEnter">
-    <input type="text" v-model="Name" placeholder="Please insert a name..." >
+ <div class="myInput flex flex-col w-60 mx-auto space-y-3" v-on:keyup.enter="onEnter">
+    <input type="text" v-model="Name" placeholder="Please give a name..." >
     <input type="number" v-model="Age" placeholder="Please give your age..." >
-    <input type="text" v-model="Location" placeholder="Give your location here...">
-    <input type="button" value="Add It" @click="addElement"/>
+    <input type="text" v-model="Location" placeholder="Please give your location here...">
+    <input class="w-32 relative -right-14 rounded-md" type="button" value="Add It" @click="addElement"/>
  </div>
- 
- <BoxElements v-for="element in icamElements" :key="element.id" :item=element @removeIcamElement="removeInOurList" />
+ <div class="mx-auto w-1/2">
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <BoxElements v-for="element in icamElements" :key="element.id" :item=element @removeIcamElement="removeInOurList" />
+   </div>
+ </div>
+
 </template>
 
 <script>
