@@ -1,44 +1,60 @@
 <template>
     <div class="h-24 bg-green-700 mb-4 flex flex-row">
-        <button id="test"
+        <button
+            id="btn"
             class="transition ease-out duration-700 border-double border-4 border-yellow-500 p-1 m-2 bg-purple-100 rounded h-10 w-32"
             @click="navigate"
+            v-if="isHome"
         >Visualization</button>
         <button
+            id="btn"
             class="transition ease-out duration-700 border-double border-4 border-yellow-500 p-1 m-2 bg-purple-100 rounded h-10 w-32"
-            @click="home"
-            :class="{hidden: toggle}"
+            @click="navigate"
+            v-if="!isHome"
         >Home</button>
     </div>
 </template>
 
 <script>
 export default {
-    
+
     data() {
-       return{
-          toggle: true
-       }
+
+
+        return {
+            txt: "Visualization"
+
+        }
+    },
+    computed: {
+        isHome() {
+
+            if (this.$route.name === "Home") {
+                return true
+            } else {
+                return false
+            }
+        },
+
     },
     methods: {
+
         navigate() {
-            if (this.toggle){
-              this.$router.push('visualization')
-              this.toggle= false
-               
+
+            if (this.txt === "Visualization") {
+                this.$router.push('visualization')
+                this.txt = "Home"
+
             }
-            if(this.toggle){
-                window.location.pathname ==='/visualization'
-                this.toggle= true
-               }
-        },
-        home(){
-            if(this.toggle === false){
-             this.$router.push('/')
-             this.toggle= true
+            else if (this.txt === "Home") {
+                this.$router.push('/')
+                this.txt = "Visualization"
             }
-            
+
         },
+
+
     }
+
 }
 </script>

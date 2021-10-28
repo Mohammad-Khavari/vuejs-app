@@ -23,7 +23,6 @@ export default {
         const nodes = data["nodes"];
         const links = data["links"];
 
-
         let drag = d3
             .drag()
             .on("start", dragstarted)
@@ -134,15 +133,15 @@ h1 {
     margin: auto;
 }
 line {
-    stroke: red;
-    stroke-width: 3px;
+    stroke: rgb(236, 179, 21);
+    stroke-width: 2px;
 }
 #flags {
     position: absolute;
-}
+} 
 text {
     user-select: none;
-}
+} 
 
 image:hover {
     cursor: grabbing;
