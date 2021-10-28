@@ -91,13 +91,39 @@ function ticked() {
     // texts.attr("x", d => d.x)
     // texts.attr("y", d => d.y)
 
-    link.attr('x1', d => d.source.x)
-        .attr('y1', d => d.source.y)
-        .attr('x2', d => d.target.x)
-        .attr('y2', d => d.target.y)
+    /**
+     * Checks whether a given coordinates is within
+     * two limits (lower and upper). Useful to make
+     * sure that nodes and links to not leave the
+     * viewport.
+     * This function also takes care of the size of
+     * the elements, as a value of 0 for x would
+     * move them out of the viewport.
+     * 
+     * @argument {number} value the value to check
+     * @argument {boolean} x whether the checked value is on the x axis (or y axis, if false)
+     */
+    function checkExtent (value, x = true) {
+        /** @type {number} The minimal number, based on the size of the flag (either 40 for x axis or 64 for y axis) */
+        const lowerLimit = x ? 40 : 64
+        /** @type {number} The maximum number, based on the size of the flat */
+        const upperLimit = x ? width - 40 : height - 64
+        
+        /** If the value is below the lower limit, return the lower limit */
+        if (value < lowerLimit) return lowerLimit
+        /** Else if the value is above the upper limit, return the upper limit */
+        else if (value >= upperLimit) return upperLimit
+        /** Else if the value is within the limits, return the value */
+        else return value
+    }
+
+    link.attr('x1', d => checkExtent(d.source.x)) // would return any number between 40 and 1960
+        .attr('y1', d => checkExtent(d.source.y, false)) // would return any number between 64 and 900
+        .attr('x2', d => checkExtent(d.target.x)) // same as L120, but for the other side of the x axis
+        .attr('y2', d => checkExtent(d.target.y, false)) // same as L121, but for the other side of the y axis
 
     node.attr("transform", function (d) {
-        return "translate(" + d.x + ", " + d.y + ")";
+        return "translate(" + checkExtent(d.x) + ", " + checkExtent(d.y, false) + ")"; // Here too, we limit the movement of the nodes
     })
     // node.attr("cx", d => d.x)
     //     .attr("cy", d => d.y)
