@@ -5,9 +5,9 @@ import Navbar from './components/Navbar.vue';
 </script>
 
 <template>
-<link rel="stylesheet" href="../src/assets/flags.css">
+  <link rel="stylesheet" href="../src/assets/flags.css" />
 
-<Navbar/>
+  <Navbar />
   <router-view />
 </template>
 

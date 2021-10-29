@@ -1,8 +1,8 @@
 <template>
     <div class="myInput flex flex-col w-60 mx-auto space-y-3" v-on:keyup.enter="onEnter">
-        <input type="text" v-model="Name" placeholder="Please give a name..." />
-        <input type="number" v-model="Age" placeholder="Please give your age..." />
-        <input type="text" v-model="Location" placeholder="Please give your location here..." />
+        <input type="text" v-model="username" placeholder="Please give a name..." />
+        <input type="number" v-model="age" placeholder="Please give your age..." />
+        <input type="text" v-model="location" placeholder="Please give your location here..." />
         <input
             class="w-32 relative -right-14 rounded-md"
             type="button"
@@ -11,10 +11,7 @@
         />
     </div>
     <div class="mx-auto w-1/2">
-    
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" >
-         
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <BoxElements
                 v-for="element in icamElements"
                 :key="element.id"
@@ -34,6 +31,9 @@ export default {
     },
     data() {
         return {
+            username: null,
+            age: null,
+            location: null,
             icamElements: []
         }
     },
@@ -53,35 +53,35 @@ export default {
     },
     methods: {
         addElement() {
-            if (this.Name && this.Age && this.Location !== "") {
+            if (this.username && this.age && this.location !== "") {
                 this.icamElements.push({
-                    name: this.Name,
-                    age: this.Age,
-                    location: this.Location
+                    username: this.username,
+                    age: this.age,
+                    location: this.location
                 })
 
             } else {
                 return
             }
-            this.Name = ""
-            this.Age = ""
-            this.Location = ""
+            this.username = ""
+            this.age = ""
+            this.location = ""
             this.saveIt()
         },
         onEnter() {
-            if (this.Name && this.Age && this.Location !== "") {
+            if (this.username && this.age && this.location !== "") {
                 this.icamElements.push({
-                    name: this.Name,
-                    age: this.Age,
-                    location: this.Location,
+                    username: this.username,
+                    age: this.age,
+                    location: this.location,
                 })
             } else {
                 return
             }
             this.saveIt()
-            this.Name = ""
-            this.Age = ""
-            this.Location = ""
+            this.username = ""
+            this.age = ""
+            this.location = ""
         },
         saveIt() {
             localStorage.setItem("info", JSON.stringify(this.icamElements))

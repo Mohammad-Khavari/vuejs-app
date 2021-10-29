@@ -2,7 +2,7 @@
 <template >
     <div class="myBox flex flex-col mx-auto w-60 border border-green-600 rounded-md items-center">
         <div class="flag flag-us"></div>
-        <h2 >
+        <h2>
             <strong>Name:</strong>
             {{ item.name }}
         </h2>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-    
+
     props: {
         item: Object
     },
