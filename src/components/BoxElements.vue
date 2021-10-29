@@ -1,18 +1,19 @@
 
 <template >
-    <div class="myBox flex flex-col mx-auto w-60 border border-green-600 rounded-md items-center">
+
+    <div v-if="propsItem" class="myBox flex flex-col mx-auto w-60 border border-green-600 rounded-md items-center">
         <div class="flag flag-us"></div>
         <h2>
             <strong>Name:</strong>
-            {{ item.name }}
+            {{ propsItem.username }}
         </h2>
         <p>
             <strong>Age:</strong>
-            {{ item.age }}
+            {{ propsItem.age }}
         </p>
         <p>
             <strong>Location:</strong>
-            {{ item.location }}
+            {{ propsItem.location }}
         </p>
         <input
             class="transform hover:scale-110 motion-reduce:transform-none w-min md:p-0.5 rounded-md"
@@ -24,15 +25,24 @@
 </template>
 
 <script>
+import draggable from "vuedraggable"
 export default {
-
+    name: 'BoxElements',
+    components:{
+        draggable,
+    },
+    data(){
+        return{
+            drag: false
+        }
+    },
     props: {
-        item: Object
+        propsItem: Object
     },
     methods: {
         removeThisElement() {
-            console.log("I yell please remove " + JSON.stringify(this.item));
-            this.$emit('removeIcamElement', this.item)
+            console.log("I yell please remove " + JSON.stringify(this.propsItem));
+            this.$emit('removeIcamElement', this.propsItem)
         }
     }
 };

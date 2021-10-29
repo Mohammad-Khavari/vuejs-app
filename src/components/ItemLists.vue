@@ -15,7 +15,7 @@
             <BoxElements
                 v-for="element in icamElements"
                 :key="element.id"
-                :item="element"
+                :propsItem="element"
                 @removeIcamElement="removeInOurList"
             />
         </div>
@@ -27,7 +27,8 @@ import BoxElements from './BoxElements.vue'
 
 export default {
     components: {
-        BoxElements
+        BoxElements,
+        
     },
     data() {
         return {
