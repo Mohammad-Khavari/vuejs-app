@@ -12,12 +12,13 @@ import * as data from "../countries-data.json"
 export default {
     mounted() {
         let margin = { top: 10, right: 5, bottom: 10, left: 100 },
-            width = 2000 - margin.left - margin.right,
-            height = 900 - margin.top - margin.bottom;
+            width = 1900 - margin.left - margin.right,
+            height = 850 - margin.top - margin.bottom;
 
         const svg = d3.select('#graph').append('svg')
             .attr("width", width)
-            .attr("height", height);
+            .attr("height", height)
+            .attr("viewBox", `0 0 ${width} ${height}`);
 
 
         const nodes = data["nodes"];
@@ -30,10 +31,10 @@ export default {
             .on("end", dragended);
 
         const force = d3.forceSimulation(nodes)
-            .force("charge", d3.forceManyBody().strength(-20))
+            .force("charge", d3.forceManyBody().strength(-10))
             .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("link", d3.forceLink(links))
-            .force("collide", d3.forceCollide(30))
+            .force("link", d3.forceLink(links).distance(25))
+            .force("collide", d3.forceCollide(20))
             .on("tick", ticked);
 
 
@@ -59,8 +60,8 @@ export default {
             })
 
         const image = node.append("svg:image")
-            .attr('width', 40)
-            .attr('height', 64)
+            .attr('width', 20)
+            .attr('height', 44)
             .attr('xlink:href', d => `/separate/${d.code}.png`)
 
         function ticked() {
@@ -79,7 +80,7 @@ export default {
              * @argument {boolean} x whether the checked value is on the x axis (or y axis, if false)
              */
             function checkExtent(value, x = true) {
-                /** @type {number} The minimal number, based on the size of the flag (either 40 for x axis or 64 for y axis) */
+                /** @type {number} The minimal number, based on the size of the flag (either 20 for x axis or 44 for y axis) */
                 const lowerLimit = x ? 40 : 64
                 /** @type {number} The maximum number, based on the size of the flat */
                 const upperLimit = x ? width - 40 : height - 64
@@ -141,6 +142,8 @@ line {
 } 
 text {
     user-select: none;
+    fill: red;
+    font-size: 8px;
 } 
 
 image:hover {
