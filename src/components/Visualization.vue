@@ -52,6 +52,10 @@ export default {
             .append("g")
             .call(drag)
 
+        const image = node.append("svg:image")
+            .attr('width', 20)
+            .attr('height', 44)
+            .attr('xlink:href', d => `/separate/${d.code}.png`)
 
         const texts = node
             .append("text")
@@ -59,10 +63,6 @@ export default {
                 return d.country
             })
 
-        const image = node.append("svg:image")
-            .attr('width', 20)
-            .attr('height', 44)
-            .attr('xlink:href', d => `/separate/${d.code}.png`)
 
         function ticked() {
 
